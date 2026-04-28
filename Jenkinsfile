@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                     url: 'https://github.com/NjilieJr/docker-demo-with-simple-python-app'
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Package') {
             steps {
                 bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" tag python-app python-app:v1.0'
-                echo 'Image packagee avec succes !'
+                echo 'Image packagee !'
             }
         }
     }
