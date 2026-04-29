@@ -20,7 +20,13 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 run --rm python-app python -m pytest tests/ || echo Tests termines'
+                script {
+                    def result = bat(
+                        script: '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 run --rm python-app python -m pytest tests/',
+                        returnStatus: true
+                    )
+                    echo "Tests termines avec code: ${result}"
+                }
             }
         }
         stage('Package') {
