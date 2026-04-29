@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" build -t python-app .'
+                bat 'set DOCKER_BUILDKIT=0 && "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" build -t python-app .'
             }
         }
         stage('Test') {
