@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_BUILDKIT = '0'
-        DOCKER = 'C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe'
+        DOCKER_HOST = 'tcp://localhost:2375'
     }
 
     stages {
@@ -15,17 +15,17 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat '"%DOCKER%" build -t python-app .'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 build -t python-app .'
             }
         }
         stage('Test') {
             steps {
-                bat '"%DOCKER%" run --rm python-app python -m pytest tests/ || echo Tests termines'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 run --rm python-app python -m pytest tests/ || echo Tests termines'
             }
         }
         stage('Package') {
             steps {
-                bat '"%DOCKER%" tag python-app python-app:v1.0'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 tag python-app python-app:v1.0'
                 echo 'Image packagee !'
             }
         }
