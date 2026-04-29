@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_BUILDKIT = '0'
-        DOCKER_HOST = 'tcp://localhost:2375'
-    }
-
     stages {
         stage('Clone') {
             steps {
@@ -15,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 build -t python-app .'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" -H tcp://localhost:2375 buildx build --load -t python-app .'
             }
         }
         stage('Test') {
